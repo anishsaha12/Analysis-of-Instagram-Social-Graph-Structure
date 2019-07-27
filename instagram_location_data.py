@@ -23,14 +23,14 @@ class InstagramCrawler:
         self.driver.get(self.BASE_URL+str(id)+'/media/')
 
         # wait for the login page to load
-        self.wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="react-root"]/section/')))
+        self.wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="react-root"]/section/main/article/header/div[1]/canvas')))
 
-        location = self.driver.find_element_by_css_selector('main > article > header > div > h1').text
+        location = self.driver.find_element_by_css_selector('#react-root > section > main > article > header > div > h1').text
         posts = []
         for i in range(1,4):
             for j in range(1,4):
                 try:
-                    href = self.driver.find_element_by_css_selector('div > div > div > div:nth-child('+str(i)+') > div:nth-child('+str(j)+') > a').get_attribute("href")
+                    href = self.driver.find_element_by_css_selector('#react-root > section > main > article > div > div > div > div:nth-child('+str(i)+') > div:nth-child('+str(j)+') > a').get_attribute("href")
                     # print('link:',href)
                     posts.append(href)
                 except:
@@ -69,9 +69,9 @@ class InstagramCrawler:
         # time.sleep(1)
 
         try:
-            e = self.driver.find_elements_by_css_selector('div > div > article > div > div > ul > li:nth-child(1) > div > div > div > span > a')
-            e += self.driver.find_elements_by_css_selector('div > div > article > div > div > ul > li:nth-child(2) > div > div > div > span > a')
-            e += self.driver.find_elements_by_css_selector('div > div > article > div > div > ul > li:nth-child(3) > div > div > div > span > a')
+            e = self.driver.find_elements_by_css_selector('#react-root > section > main > div > div > article > div > div > ul > li:nth-child(1) > div > div > div > span > a')
+            e += self.driver.find_elements_by_css_selector('#react-root > section > main > div > div > article > div > div > ul > li:nth-child(2) > div > div > div > span > a')
+            e += self.driver.find_elements_by_css_selector('#react-root > section > main > div > div > article > div > div > ul > li:nth-child(3) > div > div > div > span > a')
         except:
             pass
 
@@ -84,7 +84,7 @@ class InstagramCrawler:
        
         timestamp = ''
         try:
-            timestamp = self.driver.find_element_by_css_selector('div > div > article > div > div > a > time').get_attribute("datetime")
+            timestamp = self.driver.find_element_by_css_selector('#react-root > section > main > div > div > article > div > div > a > time').get_attribute("datetime")
         except:
             pass
         obj = {}
